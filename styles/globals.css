@@ -2,7 +2,9 @@ body{
   background-color: #39404F;
 }
 
-h1{
+p{
+  width: 245px;
+  font-weight: bolder;
   position: fixed;
   left: 50%;
   top: 0;
@@ -12,7 +14,7 @@ h1{
 }
 
 .container{
-  width: 100vw;
+  /* width: 100vw; */
   height: 100vh;
   overflow: hidden;
   position: relative;
@@ -27,6 +29,7 @@ h1{
   margin-left: auto;
   margin-right: auto;
   width: 50vw;
+  max-width: 355px;
   height: 70vh;
   border-radius: 0 0 50px 50px;
 }

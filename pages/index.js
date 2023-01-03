@@ -11,6 +11,7 @@ const inter = Inter({ subsets: ['latin'] })
 export default function Home() {
   const [waterDist, setWaterDist] = useState(0)
   useEffect(() => {
+    console.log(process.env.NEXT_PUBLIC_API_KEY)
     const query = ref(db, "board1/inputs/WaterDist");
     return onValue(query, (snapshot) => {
       const data = snapshot.val();
@@ -31,9 +32,9 @@ export default function Home() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <h1>
+      <p>
         Realtime Water Level Monitoring
-      </h1>
+      </p>
       <div class="container">
         <div class="barcontainer">
           <div class="bar" style={{height: `${(waterDist * 10)}%`}}>
