@@ -1,5 +1,7 @@
 body{
   background-color: #39404F;
+  margin: 0;
+  padding: 0;
 }
 
 p{
@@ -15,7 +17,8 @@ p{
 
 .container{
   /* width: 100vw; */
-  height: 100vh;
+  margin-top: 100px;
+  height: 90vh;
   overflow: hidden;
   position: relative;
   margin-left: auto;
@@ -25,12 +28,12 @@ p{
   background-color: #181818;
   position: relative;
   transform: translateY(-50%);
-  top: 50%;
+  top: 40%;
   margin-left: auto;
   margin-right: auto;
   width: 50vw;
   max-width: 355px;
-  height: 70vh;
+  height: 60%;
   border-radius: 0 0 50px 50px;
 }
   
@@ -53,3 +56,46 @@ p{
   }
 }
   
+.buttonGroup{
+  font-weight: bolder;
+  position: fixed;
+  left: 50%;
+  top: 50px;
+  transform: translate(-50%,0%);
+}
+
+.button{
+  width: 100px;
+  height: 30px;
+  border-radius: 50px;
+  cursor: pointer;
+}
+
+.onButton{
+  background-color: rgb(72, 179, 72);
+}
+
+.offButton{
+  background-color: rgb(199, 75, 75);
+}
+
+.statusContainer {
+  font-weight: bolder;
+  position: fixed;
+  left: 50%;
+  top: 80px;
+  transform: translate(-50%,0%);
+  text-decoration: none;
+}
+
+.statusContainer .onStatus {
+  width: 72px;
+  text-decoration: none;
+  color: rgb(80, 204, 80);
+}
+
+.statusContainer .offStatus {
+  width: 72px;
+  text-decoration: none;
+  color: rgb(199, 75, 75);
+}

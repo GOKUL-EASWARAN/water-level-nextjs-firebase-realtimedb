@@ -4,15 +4,17 @@ import { useEffect, useState } from 'react'
 import { Inter } from '@next/font/google'
 import styles from '../styles/Home.module.css'
 import { db } from '../utils/firebase'
-import { onValue, ref } from 'firebase/database'
+import { onValue, ref, set } from 'firebase/database'
 
 const inter = Inter({ subsets: ['latin'] })
 
 export default function Home() {
   const [waterDist, setWaterDist] = useState(0)
+  const [motorStatus, setMotorStatus] = useState(0)
   useEffect(() => {
-    console.log(process.env.NEXT_PUBLIC_API_KEY)
+    // waterLevel
     const query = ref(db, "board1/inputs/WaterDist");
+    console.log("distTest",query)
     return onValue(query, (snapshot) => {
       const data = snapshot.val();
       if (snapshot.exists()) {
@@ -24,6 +26,42 @@ export default function Home() {
       }
     });
   }, []);
+
+  useEffect(() => {
+    // motorStatus
+    const query = ref(db, "board2/motor/status");
+    console.log("motortest",query)
+    return onValue(query, (snapshot) => {
+      const data = snapshot.val();
+      console.log(data)
+      if (snapshot.exists()) {
+        console.log(data);
+        setMotorStatus(data)
+      }
+    });
+    
+  }, []);
+
+  const onButtonTrigger = () => {
+    set(ref(db, 'board2/motor/onSwitch'), 1)
+    .then(() => {
+      console.log("on button Pressed")
+    })
+    .catch((error) => {
+      // The write failed...
+    });
+  }
+
+  const offButtonTrigger = () => {
+    set(ref(db, 'board2/motor/offSwitch'), 1)
+    .then(() => {
+      console.log("off button Pressed")
+    })
+    .catch((error) => {
+      // The write failed...
+    });
+  }
+
   return (
     <>
       <Head>
@@ -35,9 +73,25 @@ export default function Home() {
       <p>
         Realtime Water Level Monitoring
       </p>
-      <div class="container">
-        <div class="barcontainer">
-          <div class="bar" style={{height: `${(waterDist * 10)}%`}}>
+      <div className='buttonGroup'>
+        <button className='button onButton' onClick={onButtonTrigger}>
+          On
+        </button>
+        <button className='button offButton' onClick={offButtonTrigger}>
+          Off
+        </button>
+      </div>
+      <div className='statusContainer'>
+        {
+          motorStatus === 0 ? 
+          <p className='offStatus' >Motor Off</p>
+          :
+          <p className='onStatus'>motor On</p>
+        }
+      </div>
+      <div className="container">
+        <div className="barcontainer">
+          <div className="bar" style={{height: `${((10-waterDist) * 10)}%`}}>
           </div>
         </div>
       </div>
